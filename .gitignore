@@ -1,0 +1,14 @@
+# Ignore Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+.venv/
+.env
+
+# Ignore Poetry lock files (if necessary, uncomment this next line)
+# poetry.lock
+
+# Ignore local PostgreSQL data
+pgdata/

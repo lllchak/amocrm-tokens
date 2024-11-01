@@ -1,0 +1,31 @@
+services:
+    app:
+        build: .
+        container_name: amocrm
+        env_file: 
+            - .env
+        environment:
+            - CLIENT_ID=${AMOCRM_CLIENT_ID}
+            - CLIENT_SECRET=${AMOCRM_CLIENT_SECRET}
+            - REDIRECT_URI=${AMOCRM_REDIRECT_URI}
+            - SUBDOMAIN=${AMOCRM_SUBDOMAIN}
+        depends_on:
+            - db
+        ports:
+            - "1234:1234"
+        
+    db:
+        image: postgres:13
+        container_name: postgres_db
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+            - pgdata:/var/lib/postgresql/data
+
+volumes:
+    pgdata:
